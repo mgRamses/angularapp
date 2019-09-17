@@ -1,12 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AddUserComponent } from '../add-user/add-user.component';
-
 
 @Component({
   selector: 'app-home',
@@ -17,42 +16,58 @@ export class HomeComponent implements OnInit {
   public isAdmin;
   public usuarios: any = [];
   public usuarioActual: string = '';
+  public data;
+  displayedColumns: string[] = ['name', 'email', 'github', 'options'];
+  public dsData: any;
+  public dataSource: any;
 
   constructor(private usuariosService: UsuariosService,
     private dialog: MatDialog,
     private dialogService: DialogService,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private changeDetectorRefs: ChangeDetectorRef) {
+
+  }
+
+  ngOnInit() {
+    this.usuarioActual = localStorage.getItem('usuarioActual');
+
     if (localStorage.getItem('user') === 'admin') {
       console.log(localStorage.getItem('user'));
       this.isAdmin = true;
       this.usuariosService.getAllUsers().subscribe(data => {
         this.usuarios = data['data'];
+        this.dataSource = new MatTableDataSource(this.usuarios);
+        console.log(this.dataSource.data);
       })
     } else {
       this.isAdmin = false;
     }
-  }
 
-  ngOnInit() {
-    this.usuarioActual = localStorage.getItem('usuarioActual');
-    console.log(this.usuarioActual);
   }
 
   onDelete(id: number) {
     this.dialogService.openConfirmDialog('¿Desea eliminar este usuario?')
       .afterClosed().subscribe(res => {
         if (res === true) {
-          this.usuariosService.deleteUser(id)
-          console.log(this.usuarios);
+          this.usuariosService.deleteUser(id);
+          this.dsData = this.dataSource.data;
+          const itemIndex = this.dsData.findIndex(obj => obj['id'] === id);
+          this.dataSource.data.splice(itemIndex, 1);
+          this.dataSource._updateChangeSubscription();
+
+
         }
-        this.usuarios.splice(id - 1, 1).slice(0);
       })
   }
 
   deleteUser(id: number) {
     console.log('vamnos a borrar');
-    this.usuariosService.deleteUser(id);
+    this.usuariosService.deleteUser(id)
+      .subscribe(res => {
+        console.log('nuevo');
+      })
   }
 
   onEdit() {
@@ -108,5 +123,3 @@ export class EditDialog { }
   templateUrl: 'add-user-dialog.html'
 })
 export class AddUserDialog { }
-
-
