@@ -55,7 +55,7 @@ export class AddUserComponent implements OnInit {
       password_confirmation: this.f.password_confirmation.value,
       github: this.f.github.value,
       role_id: this.f.role_id.value,
-      developer_level_id: 1
+      developer_level_id: this.f.developer_level_id.value
     }
     )
   }
