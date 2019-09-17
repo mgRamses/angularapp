@@ -64,10 +64,7 @@ export class HomeComponent implements OnInit {
 
   deleteUser(id: number) {
     console.log('vamnos a borrar');
-    this.usuariosService.deleteUser(id)
-      .subscribe(res => {
-        console.log('nuevo');
-      })
+    this.usuariosService.deleteUser(id);
   }
 
   onEdit() {
