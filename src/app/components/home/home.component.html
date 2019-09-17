@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="side-menu">
+        <div class="logo">
+            <img src="../../../assets/img/logo-blanco.png" alt="">
+        </div>
+        <ul class="links">
+            <li *ngIf="isAdmin"><a><i class="fas fa-user-friends"></i>Usuarios</a></li>
+            <li><a><i class="fas fa-project-diagram"></i>Proyectos</a></li>
+            <li><a><i class="fas fa-align-center"></i>Actividades</a></li>
+            <li><a><i class="fas fa-align-center"></i>Opción 4</a></li>
+        </ul>
+    </div>
+    <div class="dashboard">
+        <div class="title" *ngIf="isAdmin">Usuarios | <small>Administrador</small> </div>
+        <div class="title" *ngIf="!isAdmin">Bienvenido {{usuarioActual}}</div>
+        <button (click)="logout();" class="btn-logout">Cerrar sesión</button>
+        <button mat-button color="primary" (click)="onAddUser()" *ngIf="isAdmin">Agregar usuario</button>
+
+        <table *ngIf="isAdmin">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>GitHub</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios">
+                    <td>{{usuario.name}}</td>
+                    <td>{{usuario.email}}</td>
+                    <td>{{usuario.github}}</td>
+                    <td>
+                        <i class="fas fa-user-edit" (click)="onEdit()"></i>
+                        <i class="fas fa-trash-alt" (click)="onDelete(usuario.id)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

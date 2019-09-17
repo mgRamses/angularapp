@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://alpha-api.yairmiranda.dev",
+        "secure": false,
+        "changerOrigin": true
+    }
+}

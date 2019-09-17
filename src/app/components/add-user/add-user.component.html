@@ -1,0 +1,42 @@
+<form [formGroup]="addUserForm" (ngSubmit)="addUser()">
+    <h3>Agregar nuevo usuario</h3>
+    <mat-form-field>
+        <input id="name" matInput placeholder="Nombre" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input id="email" matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input id="password" matInput placeholder="Contraseña" formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input id="password_confirmation" matInput placeholder="Confirme la contraseña"
+            formControlName="password_confirmation">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input id="github" matInput placeholder="GitHub" formControlName="github">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Rol" formControlName="role_id">
+            <mat-option *ngFor="let rol of roles" [value]="rol.id">
+                {{rol.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Nivel" formControlName="developer_level_id">
+            <mat-option *ngFor="let nivel of neveles" [value]="nivel.id">
+                {{nivel.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-button [mat-dialog-close]="false">Cancelar</button>
+    <button mat-button [mat-dialog-close]="true" type="submit" [disabled]="!addUserForm.valid">Agregar usuario</button>
+</form>

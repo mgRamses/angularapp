@@ -1,0 +1,87 @@
+.container{
+    overflow: hidden;
+}
+.side-menu{
+    width: 20%;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    background: rgb(95, 29, 180);
+    color: #fff;
+    font-weight: normal;
+    float: left;
+    
+}
+.logo{
+    text-align: center;
+    padding: 15px 0;
+}
+.logo img{
+    width: 120px;
+}
+.links{
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.links li{
+    cursor:pointer;
+    padding: 15px 25px;
+}
+.links li:hover{
+    background: rgb(117, 49, 206);
+}
+.fas{
+    font-size: 1.4rem;
+    margin-right: 15px;
+}
+
+.dashboard{
+    padding: 26px;
+    width: 80%;
+    float: right;
+    font-weight: normal;
+}
+.title{
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+
+/* Estilos para las tablas */
+table{
+    border-spacing: 0;
+}
+
+td, th{
+    width: 220px;
+    text-align: left;
+    border-bottom: 1px solid #e1e1e1;
+    padding: 1.2rem 1.5rem;
+}
+.fas{
+    cursor: pointer;
+}
+.fa-user-edit{
+    color:rgb(40, 124, 194);
+    font-size: 1.2rem;
+}
+
+.fa-trash-alt{
+    color:rgb(236, 72, 72);
+    font-size: 1.2rem;
+}
+/* FIN: Estilos para las tablas */
+
+.btn-logout{
+    border: 1px solid rgb(216, 37, 37);
+    background: #fff;
+    color: rgb(216, 37, 37);
+    border-radius: 6px;
+    padding: 5px;
+    cursor:pointer;
+    float: right;
+}
+.btn-logout:hover{
+    background: rgb(216, 37, 37);
+    color: #fff;
+}
