@@ -13,6 +13,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   public isAdmin;
   public usuarios: any = [];
   public usuarioActual: string = '';
@@ -20,6 +21,7 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['name', 'email', 'github', 'options'];
   public dsData: any;
   public dataSource: any;
+  public newUser: string[];
 
   constructor(private usuariosService: UsuariosService,
     private dialog: MatDialog,
@@ -56,15 +58,16 @@ export class HomeComponent implements OnInit {
           const itemIndex = this.dsData.findIndex(obj => obj['id'] === id);
           this.dataSource.data.splice(itemIndex, 1);
           this.dataSource._updateChangeSubscription();
-
-
         }
       })
   }
 
   deleteUser(id: number) {
     console.log('vamnos a borrar');
-    this.usuariosService.deleteUser(id);
+    this.usuariosService.deleteUser(id)
+      .subscribe(res => {
+        console.log('nuevo');
+      })
   }
 
   onEdit() {
@@ -81,13 +84,18 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent, {
       width: '650px', height: '650px',
       panelClass: "formFieldWidth480"
-    });
+    })
+    dialogRef.afterClosed().subscribe(res => {
+      var lastIndex;
+      lastIndex = this.dataSource.data.length - 1;
+      var lastId = this.dataSource.data[lastIndex].id + 1;
+      console.log(lastId);
+      var newUser = { 'check-in': null, 'check-out': null, created_at: "2019-09-17 20:00:26", email: res.controls.email.value, github: res.controls.github.value, id: lastId, "in-progress": { actividades: [], bugs: [] }, name: res.controls.name.value, updated_at: "2019-09-17 20:00:26" };
 
-    /* dialogRef.afterClosed().subscribe(res => {
-       if (res === true) {
-         this.usuariosService.addUser();
-       }
-     }) */
+      console.log(res.controls.email.value);
+      this.dataSource.data.push(newUser);
+      this.dataSource._updateChangeSubscription();
+    })
   }
 
   logout() {
