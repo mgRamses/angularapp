@@ -18,6 +18,7 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material'  
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatIconModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule
   ],
   providers: [
     UsuariosService,
