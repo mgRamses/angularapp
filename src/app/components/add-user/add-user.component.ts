@@ -58,6 +58,7 @@ export class AddUserComponent implements OnInit {
       developer_level_id: this.f.developer_level_id.value
     }
     )
+    return { name: this.f.name.value, email: this.f.email.value, github: this.f.github.value }
   }
 
 }
