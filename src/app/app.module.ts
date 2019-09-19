@@ -18,7 +18,9 @@ import { MatConfirmDialogComponent } from './mat-confirm-dialog/mat-confirm-dial
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTableModule } from '@angular/material'  
+import { MatTableModule } from '@angular/material/table';
+import { EdiitUserComponent } from './components/ediit-user/ediit-user.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { MatTableModule } from '@angular/material'
     EditDialog,
     AddUserDialog,
     MatConfirmDialogComponent,
-    AddUserComponent
+    AddUserComponent,
+    EdiitUserComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,6 @@ import { MatTableModule } from '@angular/material'
 
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ConfirmDialog, HomeComponent, EditDialog, AddUserDialog, MatConfirmDialogComponent, AddUserComponent]
+  entryComponents: [ConfirmDialog, HomeComponent, EditDialog, AddUserDialog, MatConfirmDialogComponent, AddUserComponent, EdiitUserComponent]
 })
 export class AppModule { }
