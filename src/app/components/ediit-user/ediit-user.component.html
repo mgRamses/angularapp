@@ -1,28 +1,29 @@
-<form [formGroup]="addUserForm" (ngSubmit)="addUser()">
-    <h3>Agregar nuevo usuario</h3>
+<form [formGroup]="editUserForm" (ngSubmit)="editUser()">
+    <h3>Editar usuario</h3>
+    <input type="hidden" id="id" formControlName="id" value="{{data['id']}}">
     <mat-form-field>
         <input id="name" matInput placeholder="Nombre" formControlName="name" required>
     </mat-form-field>
-
+    <br>
     <mat-form-field>
         <input id="email" matInput placeholder="Email" formControlName="email" required type="text"
             pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*">
     </mat-form-field>
-
+    <br>
     <mat-form-field>
         <input id="password" matInput placeholder="Contraseña (mínimo 8 caracteres)" formControlName="password"
             type="password" required minlength=8>
     </mat-form-field>
-
+    <br>
     <mat-form-field>
         <input id="password_confirmation" matInput placeholder="Confirme la contraseña (mínimo 8 caracteres)"
             formControlName="password_confirmation" type="password" required minlength=8>
     </mat-form-field>
-
+    <br>
     <mat-form-field>
         <input id="github" matInput placeholder="GitHub" formControlName="github" required>
     </mat-form-field>
-
+    <br>
     <mat-form-field>
         <mat-select placeholder="Rol" formControlName="role_id">
             <mat-option *ngFor="let rol of roles" [value]="rol.id">
@@ -30,7 +31,7 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-
+    <br>
     <mat-form-field>
         <mat-select placeholder="Nivel" formControlName="developer_level_id">
             <mat-option *ngFor="let nivel of niveles" [value]="nivel.id">
@@ -40,6 +41,6 @@
     </mat-form-field>
     <br>
     <button mat-button [mat-dialog-close]="false">Cancelar</button>
-    <button mat-button [mat-dialog-close]="addUserForm" type="submit" [disabled]="!addUserForm.valid">Agregar
-        usuario</button>
+    <button mat-button [mat-dialog-close]="editUserForm" type="submit" [disabled]="!editUserForm.valid">Guardar
+        cambios</button>
 </form>

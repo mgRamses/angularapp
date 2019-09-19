@@ -4,22 +4,25 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Rol } from '../../models/rol.model';
 import { Nivel } from '../../models/nivel.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { Inject } from '@angular/core';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector: 'app-ediit-user',
+  templateUrl: './ediit-user.component.html',
+  styleUrls: ['./ediit-user.component.css']
 })
-export class AddUserComponent implements OnInit {
-
-  constructor(private formBuilder: FormBuilder, private usuariosService: UsuariosService, private http: HttpClient) { }
+export class EdiitUserComponent implements OnInit {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: number, private formBuilder: FormBuilder, private usuariosService: UsuariosService, private http: HttpClient) { }
 
   roles: Rol[];
   niveles: Nivel[];
-  addUserForm: FormGroup;
+  editUserForm: FormGroup;
+  id: number;
 
   ngOnInit() {
-    this.addUserForm = this.formBuilder.group({
+    this.editUserForm = this.formBuilder.group({
+      id: [''],
       name: [''],
       email: [''],
       password: [''],
@@ -27,7 +30,10 @@ export class AddUserComponent implements OnInit {
       github: [''],
       role_id: [''],
       developer_level_id: ['']
-    })
+    });
+    this.editUserForm.controls.name.value = this.data['name'];
+    this.editUserForm.controls.github.value = this.data['github'];
+    this.editUserForm.controls.email.value = this.data['email'];
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -45,10 +51,11 @@ export class AddUserComponent implements OnInit {
       })
   }
 
-  get f() { return this.addUserForm.controls; }
+  get f() { return this.editUserForm.controls; }
 
-  addUser() {
-    this.usuariosService.addUser({
+  editUser() {
+    this.usuariosService.editUser({
+      id: this.data['id'],
       name: this.f.name.value,
       email: this.f.email.value,
       password: this.f.password.value,
@@ -57,8 +64,7 @@ export class AddUserComponent implements OnInit {
       role_id: this.f.role_id.value,
       developer_level_id: this.f.developer_level_id.value
     }
-
     )
-    return { name: this.f.name.value, email: this.f.email.value, github: this.f.github.value }
+    return { id: this.data['id'], name: this.f.name.value, email: this.f.email.value, github: this.f.github.value }
   }
 }
