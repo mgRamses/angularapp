@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AddUserComponent } from '../add-user/add-user.component';
+import { EdiitUserComponent } from '../ediit-user/ediit-user.component';
 
 @Component({
   selector: 'app-home',
@@ -70,13 +71,27 @@ export class HomeComponent implements OnInit {
       })
   }
 
-  onEdit() {
-    const dialogRef = this.dialog.open(EditDialog, {
-      width: '80%'
-    });
+  onEdit(id: number, name: string, email: string, github: string, role_id: string, developer_level_id: string) {
+    const dialogRef = this.dialog.open(EdiitUserComponent, {
+      width: '40%',
+      data: {
+        id: id,
+        name: name,
+        email: email,
+        github: github,
+        role_id: role_id,
+        developer_level_id
+      }
+    })
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe(res => {
+      this.dsData = this.dataSource.data;
+      const itemIndex = this.dsData.findIndex(obj => obj['id'] === id);
+
+      this.dataSource.data[itemIndex].email = res.controls['email'].value;
+      this.dataSource.data[itemIndex].name = res.controls['name'].value;
+      this.dataSource.data[itemIndex].github = res.controls['github'].value;
+      this.dataSource._updateChangeSubscription();
     })
   }
 
