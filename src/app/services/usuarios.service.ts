@@ -49,4 +49,16 @@ export class UsuariosService {
         return res;
       })
   }
+
+  editUser(usuario: { id: number, name: string, email: string, password: string, password_confirmation: string, github: string, role_id: number, developer_level_id: number }) {
+    console.log(usuario.id);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('TOKEN')}`
+    });
+    this.http.patch<any>(`https://cors-anywhere.herokuapp.com/https://alpha-api.yairmiranda.dev/api/v1/users/${usuario.id}`, usuario, { headers: headers })
+      .subscribe(res => {
+        return res;
+      })
+  }
 }
