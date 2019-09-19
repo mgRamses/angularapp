@@ -31,9 +31,12 @@ export class EdiitUserComponent implements OnInit {
       role_id: [''],
       developer_level_id: ['']
     });
-    this.editUserForm.controls.name.value = this.data['name'];
-    this.editUserForm.controls.github.value = this.data['github'];
-    this.editUserForm.controls.email.value = this.data['email'];
+    console.log(this.data);
+    this.editUserForm.controls.github.setValue(this.data['github']);
+    this.editUserForm.controls.name.setValue(this.data['name']);
+    //this.editUserForm.controls.email.setValue(this.data['email']);
+    this.editUserForm.controls.role_id.setValue(this.data['role_id']);
+    this.editUserForm.controls.developer_level_id.setValue(this.data['developer_level_id']);
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

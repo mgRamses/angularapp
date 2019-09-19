@@ -42,7 +42,7 @@
                 <th mat-header-cell *matHeaderCellDef> Opciones </th>
                 <td mat-cell *matCellDef="let element">
                     <i class="fas fa-user-edit"
-                        (click)="onEdit(element.id, element.name, element.email, element.github)"></i>
+                        (click)="onEdit(element.id, element.name, element.email, element.github, element.role_id, element.developer_level_id)"></i>
                     <i class="fas fa-trash-alt" (click)="onDelete(element.id)"></i>
                 </td>
             </ng-container>
